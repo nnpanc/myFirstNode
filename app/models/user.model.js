@@ -35,20 +35,20 @@ var UserSchema = new Schema({
     providerData: {}
 });
 
-UserSchema.pre('save', function(next){
-	if (this.password) {
-		this.salt = new Buffer(crypto.randomBytes(16).toString('base64'), 'base64');
-		this.password = this.hashPassword(this.password);
-	}
-	next();
+UserSchema.pre('save', function (next) {
+    if (this.password) {
+        this.salt = new Buffer(crypto.randomBytes(16).toString('base64'), 'base64');
+        this.password = this.hashPassword(this.password);
+    }
+    next();
 });
 
-UserSchema.methods.hashPassword = function(password){
-	return crypto.pbkdf2Sync(password, this.salt, 10000, 64).toString('base64');
+UserSchema.methods.hashPassword = function (password) {
+    return crypto.pbkdf2Sync(password, this.salt, 10000, 64).toString('base64');
 }
 
-UserSchema.methods.authenticate = function(password) {
-	return this.password === this.hashPassword(password);
+UserSchema.methods.authenticate = function (password) {
+    return this.password === this.hashPassword(password);
 }
 
 mongoose.model('User', UserSchema);

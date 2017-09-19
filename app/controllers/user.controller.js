@@ -28,57 +28,16 @@ exports.create = (req, res, next) => {
     });
 }
 
-// exports.signup = (req, res) => {
-//  if (!req.user) {
-//  res.sendFile((path.join(__dirname+'/../views/signup.html')));
-//  }
-//  else {
-//   return res.redirect('/home');
-//  }
-// }
-
 exports.login = (req, res) => {
-     if (!req.user) {
+    if (!req.user) {
         res.sendFile((path.join(__dirname + '/../views/login.html')));
-     }
-     else {
+    }
+    else {
         return res.redirect('/home');
-     }
+    }
 }
 
 exports.logout = (req, res) => {
-     req.logout();
-     res.redirect('/');
+    req.logout();
+    res.redirect('/');
 }
-
-// exports.saveOAuthUserProfile = (req, profile, done) => {
-//  User.findOne({
-//      provider: profile.provider,
-//      providerId: profile.providerId
-//  }, function(err, user) {
-//      if (err) return done(err);
-//      else {
-//          if (!user) {
-//              console.log(profile);
-//              var possibleUsername = profile.username
-//                  || (profile.email ? profile.email.split('@')[0] : '');
-//              console.log('NAME: ' + profile.username);
-//              User.findUniqueUsername(possibleUsername, null, (availableUsername) => {
-//                  profile.username = availableUsername;
-//                  user = new User(profile);
-//                  user.save((err) => {
-//                      if (err) {
-//                          // var message = getErrorMessage(err);
-//                          // req.flash('error', message);
-//                          return req.res.redirect('/login');
-//                      }
-//                      return done(err, user);
-//                  })
-//              });
-//          }
-//          else {
-//              return done(err, user); 
-//          }
-//      }
-//  });
-// }

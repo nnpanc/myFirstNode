@@ -1,3 +1,4 @@
+// import passport from 'passport';
 import passport from 'passport';
 var user = require('../controllers/user.controller');
 
@@ -6,7 +7,6 @@ module.exports = (app) => {
 
     app.get(path + '/getuser', user.getUsers);
     app.post(path + '/signup', user.create);
-    // app.get(path + '/signup', user.signup);
 
     app.route('/login')
         .get(user.login)
@@ -17,4 +17,5 @@ module.exports = (app) => {
         }));
 
     app.post('/logout', user.logout);
+
 }

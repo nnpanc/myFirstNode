@@ -3,5 +3,5 @@ module.exports = {
     // or use 
     mongoUri: 'mongodb://admin:password@localhost:27017/myFirstNode',
     debug: true,
-    sessionSecret: 'dev_secret_key'
+    sessionSecret: 'prod_secret_key'
 }
