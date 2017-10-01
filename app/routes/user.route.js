@@ -18,4 +18,14 @@ module.exports = (app) => {
 
     app.post('/logout', user.logout);
 
+	app.get('/oauth/google', passport.authenticate('google', {
+		scope: ['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email'],
+		failureRedirect: '/login'
+	}));
+
+	app.get('/oauth/google/callback', passport.authenticate('google', {
+		failureRedirect: '/login',
+		successRedirect: '/home'
+    }));
+    
 }
