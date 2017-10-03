@@ -43,31 +43,32 @@ exports.logout = (req, res) => {
 }
 
 exports.saveOAuthUserProfile = (req, profile, done) => {
-	User.findOne({
-		provider: profile.provider,
-		providerId: profile.providerId
-	}, function(err, user) {
-		if (err) return done(err);
-		else {
-			if (!user) {
-				console.log(profile);
-                var possibleUsername = profile.username 
-                                        || (profile.email ? profile.email.split('@')[0] : '');
-				console.log('NAME: ' + profile.username);
-				User.findUniqueUsername(possibleUsername, null, (availableUsername) => {
-					profile.username = availableUsername;
-					user = new User(profile);
-					user.save((err) => {
-						if (err) {
-							return req.res.redirect('/login');
-						}
-						return done(err, user);
-					})
-				});
-			}
-			else {
-				return done(err, user); 
-			}
-		}
-	});
+    User.findOne({
+        provider: profile.provider,
+        providerId: profile.providerId
+    }, function (err, user) {
+        if (err) return done(err);
+        else {
+            if (!user) {
+                var possibleUsername = profile.username
+                    || (profile.email ? profile.email.split('@')[0] : '');
+                console.log('NAME: ' + profile.username);
+                User.findUniqueUsername(possibleUsername, null, (availableUsername) => {
+                    profile.username = availableUsername;
+                    user = new User(profile);
+                    user.save((err) => {
+                        if (err) { return req.res.redirect('/login'); }
+                        return done(err, user);
+                    })
+                });
+            }
+            else { return done(err, user); }
+        }
+    });
+}
+
+exports.getLogin = (req, res) => {
+    var username = (req.user) ? req.user.username : null;
+    console.log({ 'username': username });
+    res.json({ 'username': username });
 }

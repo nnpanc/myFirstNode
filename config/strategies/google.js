@@ -9,11 +9,11 @@ module.exports = () => {
         clientSecret: config.google.clientSecret,
         callbackURL: config.google.callbackURL,
         passReqToCallback: true
-    }, function(req, accessToken, refreshToken, profile, done) {
+    }, function (req, accessToken, refreshToken, profile, done) {
         var providerData = profile._json;
         providerData.accessToken = accessToken;
-        providerData.refreshToken = refreshToken; 
-
+        providerData.refreshToken = refreshToken;
+        
         var providerUserProfile = {
             firstName: profile.name.givenName,
             lastName: profile.name.familyName,
